@@ -1,0 +1,8 @@
+*.local
+*.res
+*.dres
+*.identcache
+__history/
+__recovery/
+Win32/
+Win64/

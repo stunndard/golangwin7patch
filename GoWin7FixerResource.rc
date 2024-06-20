@@ -1,0 +1,2 @@
+dll32 RCDATA "acryptprimitives32.dll"
+dll64 RCDATA "acryptprimitives64.dll"
