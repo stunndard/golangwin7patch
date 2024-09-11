@@ -7,6 +7,7 @@ uses
 
 function Patch(fileName: string): boolean;
 function DropDLLs: boolean;
+function CheckOSVersion: boolean;
 
 var
   Log: TStringList;
@@ -84,6 +85,30 @@ begin
   finally
     rs.Free;
   end;
+end;
+
+function CheckOSVersion: boolean;
+var
+  OSVersionInfoEx: TOSVersionInfoEx;
+begin
+  Result := False;
+  Log.Clear;
+  OSVersionInfoEx.dwOSVersionInfoSize := sizeof(TOSVersionInfo);
+  if not GetVersionEx(OSVersionInfoEx) then
+  begin
+    Log.Add('cannot get OS version.');
+    exit;
+  end;
+
+  if (OSVersionInfoEx.dwMajorVersion <> 6) and
+    (OSVersionInfoEx.dwMinorVersion <> 1)  then
+  begin
+    Log.Add('current OS is not Windows 7 or Server 2008.');
+    Log.Add('run this patcher on the actual Windows system you want to patch.');
+    exit;
+  end;
+
+  Result := True;
 end;
 
 function DropDLLs: boolean;

@@ -68,6 +68,13 @@ procedure TfrmMain.TryPatch(fileName: string);
 var
   res: boolean;
 begin
+  if not CheckOSVersion then
+  begin
+    txtLog.Lines.AddStrings(Patcher.Log);
+    txtLog.Lines.Add('');
+    exit;
+  end;
+
   res := Patch(fileName);
   txtLog.Lines.AddStrings(Patcher.Log);
   txtLog.Lines.Add('');
